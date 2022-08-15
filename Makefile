@@ -3,16 +3,16 @@ default: apply
 init:
 		rm -rf .terraform
 ifeq ($(color),true)
-        TC=""
+		TC=""
 else
-        TC=" -no-color"
+		TC=" -no-color"
 endif
-        terraform init $(TC)
+		terraform init $(TC)
 plan: init
-        terraform plan $(TC) -out plan.out -detailed-exitcode ; echo $$? > status.out
+		terraform plan $(TC) -out plan.out -detailed-exitcode ; echo $$? > status.out
 destroy:
 		terraform destroy $(TC)
 apply: plan
-        terraform apply $(TC) plan.out
+		terraform apply $(TC) plan.out
 auto-apply: init plan
-        terraform apply $(TC) plan.out --auto-approve
+		terraform apply $(TC) plan.out --auto-approve
